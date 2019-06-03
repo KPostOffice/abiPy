@@ -8,8 +8,6 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 list = []
-print("[")
-i = 0
 for filename in os.listdir(DIRECTORY):
     try:
         a = wheel_abi.analyze_wheel_abi(DIRECTORY + filename)
@@ -21,6 +19,6 @@ for filename in os.listdir(DIRECTORY):
 
     curr_obj["data"]["analyze_wheel_abi"] = dict(a.versioned_symbols)
     list.append(curr_obj)
-    v_sym = a.versioned_symbols
+    v_sym = dict(a.versioned_symbols)
 
-print(json.dumps(list))
+pp.pprint(list)
