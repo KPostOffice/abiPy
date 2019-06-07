@@ -4,21 +4,27 @@ import pprint
 import json
 
 DIRECTORY = "wheels/"
-pp = pprint.PrettyPrinter(indent=4)
+DATA_FILE = "abi_data.json"
 
 
-list = []
+list_ = []
 for filename in os.listdir(DIRECTORY):
     try:
         a = wheel_abi.analyze_wheel_abi(DIRECTORY + filename)
     except:
+        print(f"{filename} ")
         continue
 
     project  = filename.split("-")[0]
     curr_obj = {"project": project, "data": {"analyze_wheel_abi": {}}}
 
-    curr_obj["data"]["analyze_wheel_abi"] = dict(a.versioned_symbols)
-    list.append(curr_obj)
-    v_sym = dict(a.versioned_symbols)
+    print(a.versioned_symbols)
+    for so in a.versioned_symbols:
+        curr_obj["data"]["analyze_wheel_abi"][so] = []
+        for sym in a.versioned_symbols[so]:
+            curr_obj["data"]["analyze_wheel_abi"][so].append(sym)
+            
+    list_.append(curr_obj)
 
-pp.pprint(list)
+with open(DATA_FILE, "w+") as f:
+    f.write(json.dumps(list_))
