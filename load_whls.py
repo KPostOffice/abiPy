@@ -69,10 +69,3 @@ def download_latest_wheel(data, py_version = None, os_arch = None):
 
     return
 
-
-######################
-#  DO THE DOWNLOAD   #
-######################
-packages = utils.get_top_packages()
-for p in packages:
-    download_wheel(p["project"], py_version="36", os_arch="manylinux1_x86_64")
