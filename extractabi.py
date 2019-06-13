@@ -17,7 +17,6 @@ def extract():
         project  = filename.split("-")[0]
         curr_obj = {"project": project, "data": {"analyze_wheel_abi": {}}}
 
-        print(a.versioned_symbols)
         for so in a.versioned_symbols:
             curr_obj["data"]["analyze_wheel_abi"][so] = []
             for sym in a.versioned_symbols[so]:

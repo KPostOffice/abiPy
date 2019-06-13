@@ -37,7 +37,7 @@ def download_wheel(project, release = "latest", py_version = None, os_arch = Non
         info = download["filename"].split("-")
         if(download['packagetype'] == 'bdist_wheel' and
            (not py_version or utils.py_version_sat(py_version, download["python_version"])) and
-           (not os_arch or info[4] == "any.whl" or (os_arch + ".whl") == info[4])):
+           (not os_arch or (os_arch + ".whl") == info[4])):
             url = download['url']
             local_filename = "wheels/" + url.split('/')[-1]
             with requests.get(url, stream=True) as req:
@@ -51,15 +51,18 @@ def download_wheel(project, release = "latest", py_version = None, os_arch = Non
 
 def download_latest_wheel(data, py_version = None, os_arch = None):
     for download in data['urls']:
-        info = download["filename"].split("-")            
+        info = download["filename"].split("-")
         if(download['packagetype'] == 'bdist_wheel' and
            (not py_version or utils.py_version_sat(py_version, download["python_version"])) and
-           (not os_arch or info[4] == "any.whl" or (os_arch + ".whl") == info[4])):
+           (not os_arch or (os_arch + ".whl") == info[4])):
             url = download['url']
             local_filename = "wheels/" + url.split('/')[-1]
+            if( len(info) >= 5):
+                print(f"PyVersion: {download['python_version']}   OS: {info[4]}")
+                print('Satisfied')
             if os.path.exists(local_filename):
                 continue
-            
+
             with requests.get(url, stream=True) as req:
                 req.raise_for_status()
                 with open(local_filename, 'wb') as f:

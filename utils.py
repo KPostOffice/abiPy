@@ -11,14 +11,12 @@ def get_json_url(package_name):
 def py_version_sat(py_version, pip_py_version):
     if pip_py_version[0:2] == "cp":
         if re.match( re.escape(pip_py_version) + r'.*', ("cp" + py_version)):
-            print(pip_py_version)
             return True
         return False
 
     pyx = pip_py_version.split(".")
     for ver in pyx:
         if re.match(pip_py_version + r'.*', ("py" + py_version[0])):
-            print(pip_py_version)
             return True
 
     return False
