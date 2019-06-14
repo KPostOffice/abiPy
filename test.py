@@ -3,7 +3,7 @@ import utils
 ######################
 #  DO THE DOWNLOAD   #
 ######################
-packages_plus = utils.get_top_packages()[:200]
+packages_plus = utils.get_top_packages()[:360]
 projects = []
 for p in packages_plus:
     projects.append(p['project'])

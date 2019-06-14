@@ -57,9 +57,6 @@ def download_latest_wheel(data, py_version = None, os_arch = None):
            (not os_arch or (os_arch + ".whl") == info[4])):
             url = download['url']
             local_filename = "wheels/" + url.split('/')[-1]
-            if( len(info) >= 5):
-                print(f"PyVersion: {download['python_version']}   OS: {info[4]}")
-                print('Satisfied')
             if os.path.exists(local_filename):
                 continue
 

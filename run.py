@@ -22,7 +22,7 @@ class WheelData():
             
         for p in self.py_versions:
             for oa in self.os_archs:
-                print('PyVers: {p}; OSARCH: {oa}')
+                print(f'PyVers: {p}; OSARCH: {oa}')
                 load_whls.download_wheels(self.projects, self.release, p, oa)
 
     def extract_abi_data(self):
