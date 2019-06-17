@@ -21,7 +21,7 @@ class AbiVecs():
             "symbols": {}
         }
 
-        self.sizes.append(0)
+        self.sizes.append(1)
         
         if len(self.positions) == 0:
             self.positions.append(1)
@@ -52,12 +52,13 @@ class AbiVecs():
         if whl["data"]["analyze_wheel_abi"] == {}:
             return [0] * size
     
-        to_ret = [1] * size
+        to_ret = [0] * size
+        to_ret[0] = 1
         for so in whl["data"]["analyze_wheel_abi"]:
             pos = self.build_data[so]["pos"]
             start = self.positions[pos]
             lib_size = self.sizes[pos]
-            to_ret[start:start+lib_size] = [0] * lib_size
+            to_ret[start] = 1
         
             for sym in whl["data"]["analyze_wheel_abi"][so]:
                 to_ret[start + self.build_data[so]["symbols"][sym]] = 1

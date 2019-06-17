@@ -22,6 +22,6 @@ def extract():
             for sym in a.versioned_symbols[so]:
                 curr_obj["data"]["analyze_wheel_abi"][so].append(sym)
             
-            list_.append(curr_obj)
+        list_.append(curr_obj)
 
     return list_
